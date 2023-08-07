@@ -105,7 +105,3 @@ class OrderItem(db.Model, SerializerMixin):
         return quantity
     else:
         raise ValueError('Quantity must be greater than 0')
-
-   
-
-
