@@ -13,11 +13,13 @@ class Customer(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True, nullable=False)
+    wallet = db.Column(db.Float)
+    admin = db.Column(db.Boolean)
 
-    # username = db.Column(db.String, unique=True, nullable=False)
-    # _password_hash = db.Column(db.String)
-    # created_at = db.Column(db.DateTime, server_default=db.func.now())
-    # updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    username = db.Column(db.String, unique=True, nullable=False)
+    _password_hash = db.Column(db.String)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     orders = db.relationship('Order', backref='customer')
     order_items = association_proxy('orders', 'order_items')
@@ -60,6 +62,8 @@ class Order(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.integer, ForeignKey('customers.id'))
     total = db.Column(db.Float)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     order_items = db.relationship('OrderItem', backref='order')
     items = association_proxy('order_items', 'item')
@@ -72,6 +76,8 @@ class OrderItem(db.Model, SerializerMixin):
     quantity = db.Column(db.Integer)
     order_id = db.Column(db.Integer, ForeignKey('orders.id'))
     item_id = db.Column(db.Integer, ForeignKey('items.id'))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     @validates('quantity')
     def validate_quantity(self, key, quantity)
