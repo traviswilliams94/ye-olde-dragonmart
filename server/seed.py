@@ -85,6 +85,12 @@ if __name__ == '__main__':
         print('Seeding customer data')
         customer_1 = Customer(name = 'Travis Williams', username = 'traviswiliiams', wallet = 100000.00, admin = True)
         customer_1.password_hash = 'password1234'
+        customer_2 = Customer(name = 'Dominick Van Nus', username= 'dominick', wallet = 100000.00, admin = True)
+        customer_2.password_hash = 'password5678'
+        customer_3 = Customer(name = 'Randal Buckman', username = 'randalbuckman', wallet = 20000.00, admin = False)
+        customer_3.password_hash = 'password10'
+        customer_4 = Customer(name = 'Marco Arcanus', username = 'werewolf', wallet = 12000.00, admin = False)
+        customer_4.password_hash = 'gorage916'
 
         print('Seeding orderitem data')
         order_item_1 = OrderItem(quantity = 1, order_id = 1, item_id = 7)
@@ -95,7 +101,7 @@ if __name__ == '__main__':
         order_1  = Order(customer_id = 1, total = 49.00 )
 
         print('Commiting customer seed')
-        db.session.add_all([customer_1])
+        db.session.add_all([customer_1, customer_2, customer_3, customer_4])
         db.session.commit()
 
         print('Committing orderitem seeds')
