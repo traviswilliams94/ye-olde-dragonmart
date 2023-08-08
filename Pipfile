@@ -13,6 +13,7 @@ flask-cors = "*"
 faker = "*"
 sqlalchemy = "*"
 alembic = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_full_version = "3.8.13"

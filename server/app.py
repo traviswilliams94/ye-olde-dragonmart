@@ -70,18 +70,18 @@ class Home(Resource):
 
 class Items(Resource):
     def get(self):
-        items = [item.to_dict() for item in Item.query.all()]
+        items = [item.to_dict(rules=('-order_items',)) for item in Item.query.all()]
         return make_response(items, 200)
 
     def post(self):
         if session.get('customer_id'):
             admin_check = Customer.query.filter(Customer.id == session.get('customer_id')).first()
-            if admin_check.admin = True:
+            if admin_check.admin == True:
                 data = request.get_json()
 
                 new_item = Item(
                     title = data['title'],
-                    img_url = data['image'],
+                    img_url = data['img_url'],
                     description = data['description'],
                     category = data['category'],
                     price = data['price'],
@@ -91,7 +91,7 @@ class Items(Resource):
                 db.session.commit()
 
                 return make_response(new_item.to_dict(), 201)
-            return {'error': 'Unauthorized Action'}, 401
+        return {'error': 'Unauthorized Action'}, 401
 
 
 class ItemsByCategory(Resource):
@@ -104,7 +104,7 @@ class ItemsByID(Resource):
     def patch(self, id):
         if session.get('customer_id'):
             admin_check = Customer.query.filter(Customer.id == session.get('customer_id')).first()
-            if admin_check.admin = True:
+            if admin_check.admin == True:
                 item_to_update = Item.query.filter(Item.id == id).first()
                 if item_to_update:
                     # data = request.get_json()
@@ -122,7 +122,7 @@ class ItemsByID(Resource):
                 return {'error': 'Unauthorized action'}, 401
   
 
-class Orders:
+class Orders(Resource):
     def post(self):
         data = request.get_json()
 
@@ -136,7 +136,11 @@ class Orders:
 
         return make_response(new_order.to_dict(), 201)
 
-class OrdersByID:
+class OrdersByCustomer(Resource):
+    def get(self, customer_id):
+        pass
+
+class OrdersByID(Resource):
     def delete(self, id):
         order_to_delete = Order.query.filter(Order.id == id).first()
 
@@ -164,7 +168,7 @@ class CustomersByID(Resource):
     def patch(self, id):
         if session.get('customer_id'):
             customer_to_update = Customer.query.filter(Customer.id == session.get('customer_id')).first()
-             if customer_to_update:
+            if customer_to_update:
                 data = request.get_json()
 
                 setattr(customer_to_update, 'wallet', data['wallet'])
@@ -183,7 +187,7 @@ api.add_resource(Items, '/items')
 api.add_resource(ItemsByCategory, '/items/<category>')
 api.add_resource(ItemsByID, '/items/<int:id>')
 api.add_resource(Orders, '/orders')
-api.add_resource(OrdersByID, 'orders/<int:id>')
+api.add_resource(OrdersByID, '/orders/<int:id>')
 api.add_resource(OrderItems, '/orderitems')
 api.add_resource(CustomersByID,'/customers/<int:id>')
 

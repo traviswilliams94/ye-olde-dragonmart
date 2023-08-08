@@ -53,11 +53,11 @@ class Item(db.Model, SerializerMixin):
     img_url = db.Column(db.String)
     description = db.Column(db.String)
     category = db.Column(db.String, nullable=False)
-    price = db.column(db.Integer, nullable=False)
+    price = db.Column(db.Integer)
 
-    orders = db.relationship('OrderItem', backref='item')
+    order_items = db.relationship('OrderItem', backref='item')
 
-    serilize_rules = ('-order_items', '-created_at', '-updated_at')
+    serialize_rules = ('-order_items', '-created_at', '-updated_at')
 
     @validates('category')
     def validate_category(self, key, category):
@@ -75,7 +75,7 @@ class Order(db.Model, SerializerMixin):
     __tablename__ = 'orders'
 
     id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.integer, ForeignKey('customers.id'))
+    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
     total = db.Column(db.Float)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
@@ -91,17 +91,17 @@ class OrderItem(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer)
-    order_id = db.Column(db.Integer, ForeignKey('orders.id'))
-    item_id = db.Column(db.Integer, ForeignKey('items.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     serialize_rules = ('-created_at', '-updated_at', 'order', '-order_id', '-item_id')
 
     @validates('quantity')
-    def validate_quantity(self, key, quantity)
+    def validate_quantity(self, key, quantity):
 
-    if quantity > 0:
-        return quantity
-    else:
-        raise ValueError('Quantity must be greater than 0')
+        if quantity > 0:
+            return quantity
+        else:
+            raise ValueError('Quantity must be greater than 0')

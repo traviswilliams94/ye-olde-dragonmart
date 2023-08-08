@@ -8,11 +8,17 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Item
+from models import db, Item, Customer, Order, OrderItem
 
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
+
+        Item.query.delete()
+        Customer.query.delete()
+        Order.query.delete()
+        OrderItem.query.delete()
+
         print("Starting seed...")
 
         #weapons
@@ -68,9 +74,34 @@ if __name__ == '__main__':
         magic_item_9 = Item(title="Ring of Water Walking", description="A magical ring that allows the wearer to walk on water surfaces.", category="magic_item", price=200, img_url="")
         magic_item_10 = Item(title="Pearl of Power", description="A magical pearl that allows a spellcaster to regain expended spell slots.", category="magic_item", price=450, img_url="")
 
+        print('Committing Item data')
         dnd_items = [weapon_1, weapon_2, weapon_3, weapon_4, weapon_5, weapon_6, weapon_7, weapon_8, weapon_9, weapon_10, armor_1, armor_2, armor_3, armor_4, armor_5, armor_6, armor_7, armor_8, armor_9, armor_10, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, tool_10, tool_11, tool_12, magic_item_1, magic_item_2, magic_item_3, magic_item_4, magic_item_5, magic_item_6, magic_item_7, magic_item_8, magic_item_9, magic_item_10]
 
         for item in dnd_items:
             db.session.add(item)
 
+        db.session.commit()
+
+        print('Seeding customer data')
+        customer_1 = Customer(name = 'Travis Williams', username = 'traviswiliiams', wallet = 100000.00, admin = True)
+        customer_1.password_hash = 'password1234'
+
+        print('Seeding orderitem data')
+        order_item_1 = OrderItem(quantity = 1, order_id = 1, item_id = 7)
+        order_item_2 = OrderItem(quantity = 2, order_id = 1, item_id = 6)
+        order_item_3  = OrderItem(quantity = 1, order_id = 1, item_id = 4)
+
+        print('Seeding order data')
+        order_1  = Order(customer_id = 1, total = 49.00 )
+
+        print('Commiting customer seed')
+        db.session.add_all([customer_1])
+        db.session.commit()
+
+        print('Committing orderitem seeds')
+        db.session.add_all([order_item_1, order_item_2, order_item_3])
+        db.session.commit()
+
+        print('Committing order seed')
+        db.session.add_all([order_1])
         db.session.commit()
