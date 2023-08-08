@@ -18,5 +18,3 @@ Stretch Goals:
  - e-gift cards
 
  Wire Frames: https://docs.google.com/document/d/117Gf1vngQV64W0HS5ltauG1AIyZigv8_6u6jQdWq0vk/edit?usp=sharing
-
- 
