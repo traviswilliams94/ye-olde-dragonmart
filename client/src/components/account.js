@@ -10,7 +10,7 @@ function Account({ wallet, setWallet }){
         img_url: "",
         description: "",
         category: "",
-        price: "",
+        price: 0,
     });
 
 // functions to handle changes and submissions to the add money form
@@ -56,7 +56,8 @@ function Account({ wallet, setWallet }){
             method: 'POST',
             mode: "no-cors",
             headers: {
-                "Content-Type": 'application/json',
+                'Content-Type': 'application/json',
+                'Accepts': 'application/json',
             },
             body:  JSON.stringify(formData),
         })

@@ -1,7 +1,7 @@
 import {useState, useEffect } from 'react'
 import Inventory from './Inventory'
 
-function Shop({ items }){
+function Shop({ items, addToCart }){
 
     const [filterBy, setFilterBy] = useState("weapon")
     const [searchState, setSearchState] = useState("")
@@ -31,11 +31,13 @@ function Shop({ items }){
             </label>
         <br />
             <div className='searchbar'>
+            <strong>Search item by name: </strong>
+            
             <input className="prompt" value={searchState}  onChange={handleSearch}/>
             </div>
         <br />
             <h2>Inventory: </h2>
-            <Inventory filteredItems={filteredItems} searchState={searchState}/>
+            <Inventory filteredItems={filteredItems} searchState={searchState} addToCart={addToCart}/>
 
         </div>
     )

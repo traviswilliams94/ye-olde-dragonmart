@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ItemCard from "./ItemCard.js"
 
-function FeaturedList({items}){
+function FeaturedList({items, addToCart, removeFromCart}){
 
     const shuffled = items.sort(() => 0.5 - Math.random());
     let featuredItems = shuffled.slice(0,8);
@@ -14,6 +14,8 @@ function FeaturedList({items}){
                 return <ItemCard
                 key={item.id}
                 item={item}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
                 />
             })
             : <h1>Loading...</h1>
