@@ -74,24 +74,24 @@ class Items(Resource):
         return make_response(items, 200)
 
     def post(self):
-        if session.get('customer_id'):
-            admin_check = Customer.query.filter(Customer.id == session.get('customer_id')).first()
-            if admin_check.admin == True:
-                data = request.get_json()
+        # if session.get('customer_id'):
+        #     admin_check = Customer.query.filter(Customer.id == session.get('customer_id')).first()
+        #     if admin_check.admin == True:
+        data = request.get_json()
 
-                new_item = Item(
-                    title = data['title'],
-                    img_url = data['img_url'],
-                    description = data['description'],
-                    category = data['category'],
-                    price = data['price'],
-                    )
+        new_item = Item(
+            title = data['title'],
+            img_url = data['img_url'],
+            description = data['description'],
+            category = data['category'],
+            price = data['price'],
+            )
 
-                db.session.add(new_item)
-                db.session.commit()
+        db.session.add(new_item)
+        db.session.commit()
 
-                return make_response(new_item.to_dict(), 201)
-        return {'error': 'Unauthorized Action'}, 401
+        return make_response(new_item.to_dict(), 201)
+        # return {'error': 'Unauthorized Action'}, 401
 
 
 class ItemsByCategory(Resource):
