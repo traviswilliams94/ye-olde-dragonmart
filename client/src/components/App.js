@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import Store from './Store';
 
 function App() {
-  return (
-    <div className="app">
-      {}
-      <Store /> {}
-    </div>
-  );
+  return <h1>Phase 4 Project Client</h1>;
 }
 
 export default App;
