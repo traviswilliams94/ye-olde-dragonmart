@@ -1,11 +1,13 @@
-import {useState, useEffect } from 'react'
+import {useState} from 'react'
 import { NavLink } from "react-router-dom";
 
-function Account({ wallet, setWallet }){
+function Account({ wallet, setWallet, items }){
 
-    const [ordersArray, setOrdersArray] = useState([])
-    const [amount, setAmount] = useState(0)
-    const [id, setId] =useState(0)
+    const [ordersArray, setOrdersArray] = useState([]);
+    const [amount, setAmount] = useState(0);
+    const [id, setId] = useState();
+    const [priceId, setPriceId] = useState()
+    const [newPrice, setNewPrice] = useState(0)
     const [formData, setFormData] = useState({
         title: "",
         img_url: "",
@@ -41,6 +43,11 @@ function Account({ wallet, setWallet }){
         });
     }
 
+    function handlePriceChange(event){
+        const changePrice = event.target.value
+        setNewPrice(changePrice)
+    }
+
     
 
     function handleItemSubmit(event) {
@@ -57,7 +64,6 @@ function Account({ wallet, setWallet }){
         
         fetch('/items', {
             method: 'POST',
-            mode: "no-cors",
             headers: {
                 'Content-Type': 'application/json',
                 'Accepts': 'application/json',
@@ -69,15 +75,40 @@ function Account({ wallet, setWallet }){
     }
 
     function handleIdChange(event) {
-        const id = parseInt(event.target.value)
-        setId(id);
+        const newId = event.target.value
+        setId(newId);
+    }
+
+    function handlePriceIdChange(event) {
+        const newPriceId = event.target.value
+        setPriceId(newPriceId);
     }
 
     function deleteItem() {
-        fetch('http://127.0.0.1:5555/items/${id}', {
+        // const itemToDelete = items.map((item) => {
+        //     if (item.id === id){
+        //         return item
+        //     }
+        // })
+        fetch(`/items/${id}`, {
             method: "DELETE",
         })
-        .then(r => r.json())
+        .then((r) => r.json())
+        .then(() => console.log("deleted!"));
+    }
+
+    function handleNewPrice(){
+        fetch(`/items/${priceId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify({
+                price: newPrice
+            }),
+        })
+        .then((r) => r.json())
+        .then((updatedItem) => console.log(updatedItem))
     }
 
     return (
@@ -125,6 +156,7 @@ function Account({ wallet, setWallet }){
                 <br />
                     <label>Category: </label>
                     <select name='category' onChange={handleItemChange} value={formData.category}>
+                        <option value=''> </option>
                         <option value='weapon'>weapon</option>
                         <option value='armor'>armor</option>
                         <option value='tool'>tool</option>
@@ -155,10 +187,25 @@ function Account({ wallet, setWallet }){
                     <button onClick={deleteItem}>DELETE ITEM</button>
                 </div>
             </div>
-            <div className='itemupdateform'>
-                <form id='updateform'>
-
-
+            <div className='accountpieces'>
+            <h3>Update Item Price - Admin Only:</h3>
+                <form id='updateform'  onSubmit={handleNewPrice}>
+                    <label>Enter Item ID to Update: </label>
+                        <input onChange={handlePriceIdChange}
+                        type="number"
+                        name="id"
+                        value={id}
+                        />
+                <br />
+                    <label>Enter New Price: </label>
+                    <input onChange={handlePriceChange}
+                    type='number'
+                    name='newprice'
+                    value={newPrice}
+                    placeholder='Enter New Item Price'
+                    />
+                <br />
+                    <button type='submit' id="newPrice">Update Price</button>
                 </form>
             </div>
             

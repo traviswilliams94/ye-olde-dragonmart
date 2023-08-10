@@ -31,7 +31,7 @@
   padding-left: 30px;
   padding-bottom: 50 px;
   padding-top: 30px;
-  padding-right: 200px;
+  padding-right: 150px;
 }
 
 .intro {
@@ -76,7 +76,7 @@
 
 #inventory {
   float: left;
-  padding-left: 30px;
+  padding-left: 10px;
   font-size: 200%;
 }
 

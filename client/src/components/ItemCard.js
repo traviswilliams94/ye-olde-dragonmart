@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import { Card, Icon, Image, Button,  CardGroup } from 'semantic-ui-react';
+import { Card, Icon, Image, Button } from 'semantic-ui-react';
 
-function ItemCard({ item, addToCart, inCart, setInCart, removeFromCart }){
+function ItemCard({ item, addToCart, inCart, inWishlist, removeFromCart, addToWishlist, removeFromWishlist }){
 
     function handleAddToCart(){
         addToCart(item)
@@ -11,6 +11,13 @@ function ItemCard({ item, addToCart, inCart, setInCart, removeFromCart }){
         removeFromCart(item)
     }
 
+    function handleAddToWishlist(){
+        addToWishlist(item)
+    }
+
+    function handleRemoveFromWishlist(){
+        removeFromWishlist(item)
+    }
 
     return(
     
@@ -42,9 +49,15 @@ function ItemCard({ item, addToCart, inCart, setInCart, removeFromCart }){
                 <Button.Content>Remove from Cart</Button.Content>
             </Button>)
             }
-            <Button secondary>
+            {!inWishlist ?
+            <Button onClick={handleAddToWishlist} secondary>
                 <Button.Content>Add to Wishlist</Button.Content>
             </Button>
+            : (
+                <Button onClick={handleRemoveFromWishlist} secondary>
+                <Button.Content>Remove from Wishlist</Button.Content>
+            </Button>)
+            }
         </Card>
         
         </div>

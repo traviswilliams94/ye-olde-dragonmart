@@ -22,10 +22,10 @@ if __name__ == '__main__':
         print("Starting seed...")
 
         #weapons
-        weapon_1 = Item(title = "Short Sword", description="A quick and light weapon.\nDamage: 1d6 piercing\nProperties: Finesse, Light", category="weapon", price=10, img_url="")
+        weapon_1 = Item(title = "Short Sword", description="A quick and light weapon.\nDamage: 1d6 piercing\nProperties: Finesse, Light", category="weapon", price=10, img_url='https://i.pinimg.com/originals/a6/f3/e2/a6f3e25385e7abe20927b322f9c89431.png')
         weapon_2 = Item(title = "Long Sword", description="A versatile blade with good reach.\nDamage: 1d8 slashing\nProperties: Versatile (1d10)", category="weapon", price=15, img_url="")
         weapon_3 = Item(title = "Great Sword", description="A massive two-handed sword for heavy damage.\nDamage: 2d6 slashing\nProperties: Heavy, Two-Handed", category="weapon", price=50, img_url="")
-        weapon_4 = Item(title = "Short Bow", description="A compact ranged weapon with a relatively short range, ideal for swift attacks.\nDamage: 1d6 piercing\nProperties: Ammunition (range 80/320), two-handed", category="weapon", price=25, img_url="")
+        weapon_4 = Item(title = "Short Bow", description="A compact ranged weapon with a relatively short range, ideal for swift attacks.\nDamage: 1d6 piercing\nProperties: Ammunition (range 80/320), two-handed", category="weapon", price=25, img_url="https://tse2.mm.bing.net/th?id=OIP.yMqXhafN52xK20KPrG9yNAHaHa&pid=Api")
         weapon_5 = Item(title = "Long Bow", description="A large and powerful ranged weapon with great range and accuracy.\nDamage: 1d8 piercing\nProperties: Ammunition (range 150/600), heavy, two-handed", category="weapon", price=50, img_url="")
         weapon_6 = Item(title="Dagger", description="A small, versatile weapon for close combat.\nDamage: 1d4 piercing\nProperties: Finesse, Light, Thrown (range 20/60)", category="weapon", price=2, img_url="")
         weapon_7 = Item(title="Warhammer", description="A versatile weapon for bludgeoning damage.\nDamage: 1d8 bludgeoning\nProperties: Versatile (1d10)", category="weapon", price=15, img_url="")

@@ -2,7 +2,7 @@ import React from "react";
 import {useState, useEffect} from 'react';
 import FeaturedList from './FeaturedList'
 
-function Home({ items, addToCart, removeFromCart }){
+function Home({ items, addToCart, removeFromCart, addToWishlist }){
     
 
 
@@ -15,7 +15,7 @@ function Home({ items, addToCart, removeFromCart }){
             <br />
             <h3 className="intro" id='featureTitle'>Featured Items:</h3>
             <div id='featList'>
-            <FeaturedList items={items} addToCart={addToCart} removeFromCart={removeFromCart}/>
+            <FeaturedList items={items} addToCart={addToCart} removeFromCart={removeFromCart} addToWishlist={addToWishlist}/>
             </div>
         </div>
     )

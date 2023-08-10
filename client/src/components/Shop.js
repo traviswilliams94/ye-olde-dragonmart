@@ -1,7 +1,7 @@
 import {useState, useEffect } from 'react'
 import Inventory from './Inventory'
 
-function Shop({ items, addToCart }){
+function Shop({ items, addToCart, addToWishlist}){
 
     const [filterBy, setFilterBy] = useState("weapon")
     const [searchState, setSearchState] = useState("")
@@ -39,7 +39,7 @@ function Shop({ items, addToCart }){
             </div>
         <br />
             <h2 className="intro" id='inventory'>Inventory: </h2>
-            <Inventory filteredItems={filteredItems} searchState={searchState} addToCart={addToCart}/>
+            <Inventory filteredItems={filteredItems} searchState={searchState} addToCart={addToCart} addToWishlist={addToWishlist}/>
 
         </div>
     )
