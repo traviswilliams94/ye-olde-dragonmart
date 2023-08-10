@@ -7,7 +7,7 @@ function Inventory({ filteredItems, searchState, addToCart }){
     ))
 
     return (
-        <div>
+        <div className='featuredlist'>
             {displayItems}
         </div>
     )

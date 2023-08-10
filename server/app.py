@@ -102,24 +102,35 @@ class ItemsByCategory(Resource):
 
 class ItemsByID(Resource):
     def patch(self, id):
-        if session.get('customer_id'):
-            admin_check = Customer.query.filter(Customer.id == session.get('customer_id')).first()
-            if admin_check.admin == True:
-                item_to_update = Item.query.filter(Item.id == id).first()
-                if item_to_update:
-                    # data = request.get_json()
-                    for key in request.json:
-                        setattr(item_to_update, key, request.json[key])
+        # if session.get('customer_id'):
+        #     admin_check = Customer.query.filter(Customer.id == session.get('customer_id')).first()
+        #     if admin_check.admin == True:
+        item_to_update = Item.query.filter(Item.id == id).first()
+        if item_to_update:
+            # data = request.get_json()
+            for key in request.json:
+                setattr(item_to_update, key, request.json[key])
 
-                    db.session.add(item_to_update)
-                    db.session.commit()
+            db.session.add(item_to_update)
+            db.session.commit()
 
-                    return make_response(item_to_update.to_dict(), 202)
-                    
-                else:
-                    return {'error': 'Item not found'}, 404
-            else:
-                return {'error': 'Unauthorized action'}, 401
+            return make_response(item_to_update.to_dict(), 202)
+            
+        else:
+            return {'error': 'Item not found'}, 404
+            # else:
+            #     return {'error': 'Unauthorized action'}, 401
+
+    def delete(self, id):
+        item_to_delete = Item.query.filter(Item.id == id).first()
+        if item_to_delete:
+            db.session.delete(item_to_delete)
+            db.session.commit()
+
+            return make_response({},204)
+        else:
+            return {'error': 'Item not found'}, 404
+
   
 
 class Orders(Resource):

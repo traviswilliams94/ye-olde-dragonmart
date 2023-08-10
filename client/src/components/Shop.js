@@ -20,6 +20,7 @@ function Shop({ items, addToCart }){
 
     return(
         <div>
+            <div className='filters'>
             <label>
             <strong>Filter by Category:</strong>
             <select onChange={handleFilterChange} value={filterBy}>
@@ -35,8 +36,9 @@ function Shop({ items, addToCart }){
             
             <input className="prompt" value={searchState}  onChange={handleSearch}/>
             </div>
+            </div>
         <br />
-            <h2>Inventory: </h2>
+            <h2 className="intro" id='inventory'>Inventory: </h2>
             <Inventory filteredItems={filteredItems} searchState={searchState} addToCart={addToCart}/>
 
         </div>

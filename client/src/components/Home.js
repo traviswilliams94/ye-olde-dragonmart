@@ -10,12 +10,13 @@ function Home({ items, addToCart, removeFromCart }){
     return(
         <div>
             <br />
-            <h2>Welcome to the Ye Olde Dragonmart!</h2>
-            <p>Shop weapons, armor, tools, and magic items til your pockets run dry. You'll never find a better deal in all of Brittania!</p>
+            <h2 className="intro" id='welcome' style={{fontSize: "50px"}}>Welcome to the Ye Olde Dragonmart!</h2>
+            <p className="intro" id='greeting'> Shop weapons, armor, tools, and magic items til your pockets run dry. You'll never find a better deal in all of Brittania!</p>
             <br />
-            <h3>Featured Items:</h3>
+            <h3 className="intro" id='featureTitle'>Featured Items:</h3>
+            <div id='featList'>
             <FeaturedList items={items} addToCart={addToCart} removeFromCart={removeFromCart}/>
-            <div></div>
+            </div>
         </div>
     )
 }

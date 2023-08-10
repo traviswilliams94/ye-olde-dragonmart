@@ -5,6 +5,7 @@ import Account from './account';
 import Home from './Home';
 import Shop from './Shop'
 import Cart from './Cart'
+import '../App.css';
 
 function App() {
   const [page, setPage] = useState('/')
@@ -36,17 +37,13 @@ function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const featured = items.
-  // })
-
   return (
     <div className='App'>
       <NavBar onChangePage={setPage}/>
       <Routes>
         <Route path='/shop' element={<Shop items={items} addToCart={addToCart}/>}></Route>
         {/* <Route path='/wishlist' element={<Wishlist />}></Route> */}
-        <Route path='/cart' element={<Cart inCart={inCart} setInCart={setInCart} removeFromCart={removeFromCart}/>}></Route>
+        <Route path='/cart' element={<Cart inCart={inCart} setInCart={setInCart} removeFromCart={removeFromCart} wallet={wallet} setWallet={setWallet}/>}></Route>
         <Route path='/account' element={<Account wallet={wallet} setWallet={setWallet}/>}></Route>
         <Route path='/' element={<Home items={items} addToCart={addToCart} removeFromCart={removeFromCart}/>}></Route>
       </Routes>
