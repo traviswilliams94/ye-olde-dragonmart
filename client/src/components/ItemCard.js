@@ -3,7 +3,7 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react';
 
 function ItemCard({ item, addToCart, inCart, inWishlist, removeFromCart, addToWishlist, removeFromWishlist }){
 
-    function handleAddToCart(){
+    function handleAddToCart(e){
         addToCart(item)
         }
 
