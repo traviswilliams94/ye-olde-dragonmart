@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard.js"
 
 function FeaturedList({items, addToCart, removeFromCart, addToWishlist}){
-
+    
     const shuffled = items.sort(() => 0.5 - Math.random());
     let featuredItems = shuffled.slice(0,8);
     
-
     return (
         <div className="featuredlist">
             {featuredItems ?
@@ -23,6 +22,7 @@ function FeaturedList({items, addToCart, removeFromCart, addToWishlist}){
         }
         </div>
     )
+
 }
 
 export default FeaturedList;
